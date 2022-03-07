@@ -25,7 +25,7 @@ module.exports = function (config) {
       suppressAll: true // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/material-dayjs-date-adapter'),
+      dir: require('path').join(__dirname, '../../coverage/material-dayjs-date-adapter'),
       subdir: '.',
       reporters: [
         { type: 'html' },

@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "material-dayjs-date-adapter": {
+    "date-adapter-demo": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -14,33 +14,31 @@
         }
       },
       "root": "",
-      "sourceRoot": "src",
+      "sourceRoot": "projects/date-adapter-demo/src",
       "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/material-dayjs-date-adapter",
-            "index": "src/index.html",
-            "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "tsconfig.app.json",
+            "outputPath": "dist/date-adapter-demo",
+            "index": "projects/date-adapter-demo/src/index.html",
+            "main": "projects/date-adapter-demo/src/main.ts",
+            "polyfills": "projects/date-adapter-demo/src/polyfills.ts",
+            "tsConfig": "projects/date-adapter-demo/tsconfig.app.json",
             "aot": true,
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              "projects/date-adapter-demo/src/favicon.ico",
+              "projects/date-adapter-demo/src/assets"
             ],
-            "styles": [
-              "src/styles.scss"
-            ],
+            "styles": ["./projects/date-adapter-demo/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
+                  "replace": "projects/date-adapter-demo/src/environments/environment.ts",
+                  "with": "projects/date-adapter-demo/src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -68,64 +66,86 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "material-dayjs-date-adapter:build"
+            "browserTarget": "date-adapter-demo:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "material-dayjs-date-adapter:build:production"
+              "browserTarget": "date-adapter-demo:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "material-dayjs-date-adapter:build"
+            "browserTarget": "date-adapter-demo:build"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "src/test.ts",
-            "polyfills": "src/polyfills.ts",
+            "main": "projects/date-adapter-demo/src/test.ts",
+            "polyfills": "projects/date-adapter-demo/src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.scss"
-            ],
+            "assets": ["projects/date-adapter-demo/src/favicon.ico", "projects/date-adapter-demo/src/assets"],
+            "styles": ["projects/date-adapter-demo/src/styles.scss"],
             "scripts": []
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "tsconfig.app.json",
-              "tsconfig.spec.json",
-              "e2e/tsconfig.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "lintFilePatterns": ["projects/date-adapter-demo/src/**/*.ts", "projects/date-adapter-demo/src/**/*.html"]
           }
         },
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "material-dayjs-date-adapter:serve"
+            "devServerTarget": "date-adapter-demo:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "material-dayjs-date-adapter:serve:production"
+              "devServerTarget": "date-adapter-demo:serve:production"
             }
+          }
+        }
+      }
+    },
+    "material-dayjs-date-adapter": {
+      "projectType": "library",
+      "root": "projects/dayjs-date-adapter",
+      "sourceRoot": "projects/dayjs-date-adapter/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/dayjs-date-adapter/tsconfig.lib.json",
+            "project": "projects/dayjs-date-adapter/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/dayjs-date-adapter/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/dayjs-date-adapter/src/test.ts",
+            "tsConfig": "projects/dayjs-date-adapter/tsconfig.spec.json",
+            "karmaConfig": "projects/dayjs-date-adapter/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": ["projects/date-adapter-demo/src/**/*.ts", "projects/date-adapter-demo/src/**/*.html"]
           }
         }
       }
     }
   },
-  "defaultProject": "material-dayjs-date-adapter"
+  "defaultProject": "date-adapter-demo"
 }
