@@ -1,10 +1,16 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { DateOnlyPipe } from './shared/pipes/dateonly.pipe';
+import { DayjsPipe } from './shared/pipes/dayjs.pipe';
 
 describe('AppComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [AppComponent]
+            declarations: [AppComponent],
+            imports: [
+              DateOnlyPipe,
+              DayjsPipe
+            ]
         }).compileComponents();
     });
 
@@ -13,22 +19,5 @@ describe('AppComponent', () => {
         const app = fixture.componentInstance;
 
         expect(app).toBeTruthy();
-    });
-
-    it(`should have as title 'material-dayjs-date-adapter'`, () => {
-        const fixture = TestBed.createComponent(AppComponent);
-        const app = fixture.componentInstance;
-
-        expect(app.title).toEqual('material-dayjs-date-adapter');
-    });
-
-    it('should render title', () => {
-        const fixture = TestBed.createComponent(AppComponent);
-        fixture.detectChanges();
-        const compiled = fixture.nativeElement;
-
-        expect(compiled.querySelector('.content span').textContent).toContain(
-            'material-dayjs-date-adapter app is running!'
-        );
     });
 });

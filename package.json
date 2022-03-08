@@ -10,8 +10,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "stats": "yarn build:prod --namedChunks --statsJson && webpack-bundle-analyzer dist/example-material-dayjs-adapter/stats-es2015.json",
-    "semantic-release": "semantic-release"
+    "stats": "yarn build:prod --namedChunks --statsJson && webpack-bundle-analyzer dist/example-material-dayjs-adapter/stats-es2015.json"
   },
   "private": true,
   "dependencies": {

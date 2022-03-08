@@ -17,7 +17,7 @@ import { NgModule } from '@angular/core';
         {
             provide: DateAdapter,
             useClass: DayjsDateAdapter,
-            deps: [MAT_DATE_LOCALE]
+            deps: [MAT_DATE_LOCALE, MAT_DAYJS_DATE_ADAPTER_OPTIONS]
         },
         {
             provide: MAT_DATE_FORMATS,
