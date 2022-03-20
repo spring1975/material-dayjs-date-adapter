@@ -51,7 +51,7 @@ interface LocaleData {
     shortDaysOfWeek: string[];
     shortMonths: string[];
 }
-export type MonthStyles = 'long' | 'short' | 'narrow';
+export type DateStyles = 'long' | 'short' | 'narrow';
 
 /** Adapts dayjs.Dayjs Dates for use with Angular Material. */
 @Injectable()
@@ -104,7 +104,7 @@ export class DayjsDateAdapter extends DateAdapter<dayjs.Dayjs> {
         return this.dayJs(date).day();
     }
 
-    getMonthNames(style: MonthStyles): string[] {
+    getMonthNames(style: DateStyles): string[] {
         return style === 'long'
             ? this.localeData.longMonths
             : this.localeData.shortMonths;
@@ -133,7 +133,7 @@ export class DayjsDateAdapter extends DateAdapter<dayjs.Dayjs> {
         });
     }
 
-    getDayOfWeekNames(style: MonthStyles): string[] {
+    getDayOfWeekNames(style: DateStyles): string[] {
         if (style === 'long') {
             return this.localeData.longDaysOfWeek;
         }
