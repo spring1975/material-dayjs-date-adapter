@@ -2,6 +2,14 @@
   "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
   "dest": "../../dist/material-dayjs-date-adapter",
   "lib": {
-    "entryFile": "src/public-api.ts"
+    "entryFile": "src/public-api.ts",
+    "umdModuleIds": {
+      "dayjs": "_dayjs",
+      "dayjs/plugin/arraySupport": "_arraySupport",
+      "dayjs/plugin/customParseFormat": "_customParseFormat",
+      "dayjs/plugin/localeData": "_localeData",
+      "dayjs/plugin/localizedFormat": "_localizedFormat",
+      "dayjs/plugin/utc": "_utc"
+    }
   }
 }

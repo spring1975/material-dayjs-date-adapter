@@ -6,7 +6,7 @@
     "start": "ng serve date-adapter-demo",
     "build:lib": "ng build material-dayjs-date-adapter",
     "build:demo": "ng build date-adapter-demo",
-    "build:prod": "ng build --prod",
+    "build:prod": "ng build material-dayjs-date-adapter --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
