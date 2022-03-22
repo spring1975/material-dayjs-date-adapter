@@ -1,6 +1,5 @@
 import * as dayjs from 'dayjs';
 import { Component } from '@angular/core';
-import { startWith, filter, map } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 
 @Component({
@@ -9,11 +8,9 @@ import { FormControl } from '@angular/forms';
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-    readonly datePicked = new FormControl();
+    readonly datePicked = new FormControl(dayjs());
 
-    readonly datePicked$ = this.datePicked?.valueChanges.pipe(
-        startWith(dayjs()),
-        filter<dayjs.Dayjs>(Boolean),
-        map((d) => d.toDate())
-    );
+    get datePicked$() {
+        return this.datePicked.valueChanges;
+    }
 }

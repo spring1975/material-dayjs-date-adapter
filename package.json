@@ -1,18 +1,22 @@
 {
   "name": "material-dayjs-date-adapter",
-  "version": "0.0.0",
+  "version": "0.3.0",
+  "description": "Angular Material day.js Adapter",
+  "author": "Roger Spring",
+  "license": "MIT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve date-adapter-demo",
     "build:lib": "ng build material-dayjs-date-adapter",
     "build:demo": "ng build date-adapter-demo",
     "build:prod": "ng build material-dayjs-date-adapter --prod",
-    "test": "ng test",
+    "test": "ng test material-dayjs-date-adapter",
+    "test:demo": "ng test demo",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "stats": "yarn build:prod --namedChunks --statsJson && webpack-bundle-analyzer dist/example-material-dayjs-adapter/stats-es2015.json"
   },
-  "private": true,
+  "private": false,
   "dependencies": {
     "@angular/animations": "~11.0.5",
     "@angular/cdk": "^11.1.2",
@@ -25,7 +29,6 @@
     "@angular/platform-browser": "~11.0.5",
     "@angular/platform-browser-dynamic": "~11.0.5",
     "@angular/router": "~11.0.5",
-    "eslint-plugin-jasmine": "^4.1.3",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
@@ -48,6 +51,7 @@
     "dayjs": "^1.10.5",
     "eslint": "^7.26.0",
     "eslint-plugin-import": "2.22.1",
+    "eslint-plugin-jasmine": "^4.1.3",
     "eslint-plugin-jsdoc": "30.7.6",
     "eslint-plugin-prefer-arrow": "1.2.2",
     "jasmine-core": "~3.6.0",
