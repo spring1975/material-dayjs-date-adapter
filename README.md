@@ -14,7 +14,7 @@ If you are not familiar with date adapters for Angular material component Datepi
 
 ## Usage
 
-If you want to see the adapter in action - [www.stackblitz.com/](www.stackblitz.com/)
+If you want to see the adapter in action - [www.stackblitz.com/](https://stackblitz.com/edit/material-dayjs-date-adapter-demo?file=src/app/app.component.html)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
