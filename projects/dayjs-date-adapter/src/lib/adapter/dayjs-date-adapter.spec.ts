@@ -22,7 +22,7 @@ import {
 import { TestBed, inject, waitForAsync } from '@angular/core/testing';
 
 import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
-import { DayjsDateModule as DayjsDateModule } from './index';
+import { DayjsDateAdapterModule } from 'material-dayjs-date-adapter';
 
 describe('DayjsDateAdapter', () => {
     describe('with defaults', () => {
@@ -32,7 +32,7 @@ describe('DayjsDateAdapter', () => {
         beforeEach(
             waitForAsync(() => {
                 TestBed.configureTestingModule({
-                    imports: [DayjsDateModule],
+                    imports: [DayjsDateAdapterModule],
                     providers: [
                         {
                             provide: MAT_DAYJS_DATE_ADAPTER_OPTIONS,
@@ -688,7 +688,7 @@ describe('DayjsDateAdapter', () => {
         beforeEach(
             waitForAsync(() => {
                 TestBed.configureTestingModule({
-                    imports: [DayjsDateModule],
+                    imports: [DayjsDateAdapterModule],
                     providers: [{ provide: MAT_DATE_LOCALE, useValue: 'ja' }]
                 }).compileComponents();
             })
@@ -710,7 +710,7 @@ describe('DayjsDateAdapter', () => {
         beforeEach(
             waitForAsync(() => {
                 TestBed.configureTestingModule({
-                    imports: [DayjsDateModule],
+                    imports: [DayjsDateAdapterModule],
                     providers: [{ provide: MAT_DATE_LOCALE, useValue: 'fr' }]
                 }).compileComponents();
             })
@@ -733,7 +733,7 @@ describe('DayjsDateAdapter', () => {
         beforeEach(
             waitForAsync(() => {
                 TestBed.configureTestingModule({
-                    imports: [DayjsDateModule],
+                    imports: [DayjsDateAdapterModule],
                     providers: [
                         {
                             provide: MAT_DAYJS_DATE_ADAPTER_OPTIONS,
@@ -779,7 +779,7 @@ describe('DayjsDateAdapter', () => {
                 waitForAsync(() => {
                     TestBed.resetTestingModule();
                     TestBed.configureTestingModule({
-                        imports: [DayjsDateModule],
+                        imports: [DayjsDateAdapterModule],
                         providers: [
                             {
                                 provide: MAT_DAYJS_DATE_ADAPTER_OPTIONS,

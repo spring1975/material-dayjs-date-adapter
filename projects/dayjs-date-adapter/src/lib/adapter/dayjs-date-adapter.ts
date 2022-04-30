@@ -1,17 +1,11 @@
 import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
-import { Optional, Inject, InjectionToken, Injectable } from '@angular/core';
-import * as _arraySupport from 'dayjs/plugin/arraySupport';
-import * as _customParseFormat from 'dayjs/plugin/customParseFormat';
-import * as _dayjs from 'dayjs';
-import * as _localeData from 'dayjs/plugin/localeData';
-import * as _localizedFormat from 'dayjs/plugin/localizedFormat';
-import * as _utc from 'dayjs/plugin/utc';
-const LocalizedFormat = _localizedFormat;
-const arraySupport = _arraySupport;
-const customParseFormat = _customParseFormat;
-const dayjs = _dayjs;
-const localeData = _localeData;
-const utc = _utc;
+import { Optional, Inject, InjectionToken } from '@angular/core';
+import arraySupport from 'dayjs/plugin/arraySupport';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+import dayjs from 'dayjs';
+import localeData from 'dayjs/plugin/localeData';
+import localizedFormat from 'dayjs/plugin/localizedFormat';
+import utc from 'dayjs/plugin/utc';
 
 declare const ngDevMode: object | null;
 
@@ -26,11 +20,11 @@ export interface DayJsDateAdapterOptions {
 
 export function MAT_DAYJS_DATE_ADAPTER_OPTIONS_FACTORY(): DayJsDateAdapterOptions {
     return {
-        useUtc: true
+        useUtc: false
     };
 }
 
-/** InjectionToken for _dayjs.Dayjs date adapter to configure options. */
+/** InjectionToken for dayjs.Dayjs date adapter to configure options. */
 export const MAT_DAYJS_DATE_ADAPTER_OPTIONS =
     new InjectionToken<DayJsDateAdapterOptions>(
         'MAT_DAYJS_DATE_ADAPTER_OPTIONS',
@@ -60,9 +54,8 @@ interface LocaleData {
 }
 export type DateStyles = 'long' | 'short' | 'narrow';
 
-/** Adapts _dayjs.Dayjs Dates for use with Angular Material. */
-@Injectable()
-export class DayjsDateAdapter extends DateAdapter<_dayjs.Dayjs> {
+/** Adapts dayjs.Dayjs Dates for use with Angular Material. */
+export class DayjsDateAdapter extends DateAdapter<dayjs.Dayjs> {
     private localeData: LocaleData;
 
     constructor(
@@ -76,7 +69,7 @@ export class DayjsDateAdapter extends DateAdapter<_dayjs.Dayjs> {
         this.localeData = this.initializeParser(dateLocale);
     }
 
-    setLocale(locale: string): LocaleData {
+    override setLocale(locale: string): LocaleData {
         super.setLocale(locale);
         this.dateLocale = locale;
         const dayJsLocaleData = this.dayJs().locale(locale).localeData();
@@ -95,19 +88,19 @@ export class DayjsDateAdapter extends DateAdapter<_dayjs.Dayjs> {
         return this.localeData;
     }
 
-    getYear(date: _dayjs.Dayjs): number {
+    getYear(date: dayjs.Dayjs): number {
         return this.dayJs(date).year();
     }
 
-    getMonth(date: _dayjs.Dayjs): number {
+    getMonth(date: dayjs.Dayjs): number {
         return this.dayJs(date).month();
     }
 
-    getDate(date: _dayjs.Dayjs): number {
+    getDate(date: dayjs.Dayjs): number {
         return this.dayJs(date).date();
     }
 
-    getDayOfWeek(date: _dayjs.Dayjs): number {
+    getDayOfWeek(date: dayjs.Dayjs): number {
         return this.dayJs(date).day();
     }
 
@@ -150,7 +143,7 @@ export class DayjsDateAdapter extends DateAdapter<_dayjs.Dayjs> {
         return this.localeData.narrowDaysOfWeek;
     }
 
-    getYearName(date: _dayjs.Dayjs): string {
+    getYearName(date: dayjs.Dayjs): string {
         return this.dayJs(date).format('YYYY');
     }
 
@@ -158,15 +151,15 @@ export class DayjsDateAdapter extends DateAdapter<_dayjs.Dayjs> {
         return this.localeData.firstDayOfWeek;
     }
 
-    getNumDaysInMonth(date: _dayjs.Dayjs): number {
+    getNumDaysInMonth(date: dayjs.Dayjs): number {
         return this.dayJs(date).daysInMonth();
     }
 
-    clone(date: _dayjs.Dayjs): _dayjs.Dayjs {
+    clone(date: dayjs.Dayjs): dayjs.Dayjs {
         return date.clone().locale(this.dateLocale);
     }
 
-    createDate(year: number, month: number, date: number): _dayjs.Dayjs {
+    createDate(year: number, month: number, date: number): dayjs.Dayjs {
         // dayjs will create an invalid date if any of the components are out of bounds, but we
         // explicitly check each case so we can throw more descriptive errors.
         if (typeof ngDevMode === 'undefined' || ngDevMode) {
@@ -210,11 +203,11 @@ export class DayjsDateAdapter extends DateAdapter<_dayjs.Dayjs> {
         return result;
     }
 
-    today(): _dayjs.Dayjs {
+    today(): dayjs.Dayjs {
         return this.dayJs().locale(this.dateLocale);
     }
 
-    parse(value: any, parseFormat?: string | string[]): _dayjs.Dayjs | null {
+    parse(value: any, parseFormat?: string | string[]): dayjs.Dayjs | null {
         if (value && typeof value === 'string') {
             return this.dayJs(value, parseFormat, this.locale);
         } else if (value) {
@@ -223,26 +216,26 @@ export class DayjsDateAdapter extends DateAdapter<_dayjs.Dayjs> {
         return null;
     }
 
-    format(date: _dayjs.Dayjs, displayFormat: string): string {
+    format(date: dayjs.Dayjs, displayFormat: string): string {
         if (!this.isValid(date)) {
             throw Error('DayjsDateAdapter: Cannot format invalid date.');
         }
         return date.locale(this.locale).format(displayFormat);
     }
 
-    addCalendarYears(date: _dayjs.Dayjs, years: number): _dayjs.Dayjs {
+    addCalendarYears(date: dayjs.Dayjs, years: number): dayjs.Dayjs {
         return date.locale(this.dateLocale).add(years, 'year');
     }
 
-    addCalendarMonths(date: _dayjs.Dayjs, months: number): _dayjs.Dayjs {
+    addCalendarMonths(date: dayjs.Dayjs, months: number): dayjs.Dayjs {
         return date.locale(this.dateLocale).add(months, 'month');
     }
 
-    addCalendarDays(date: _dayjs.Dayjs, days: number): _dayjs.Dayjs {
+    addCalendarDays(date: dayjs.Dayjs, days: number): dayjs.Dayjs {
         return date.locale(this.dateLocale).add(days, 'day');
     }
 
-    toIso8601(date: _dayjs.Dayjs): string {
+    toIso8601(date: dayjs.Dayjs): string {
         return date.locale(this.dateLocale).toISOString();
     }
 
@@ -259,7 +252,7 @@ export class DayjsDateAdapter extends DateAdapter<_dayjs.Dayjs> {
      * @returns The deserialized date object, either a valid date, null if the value can be
      *     deserialized into a null date (e.g. the empty string), or an invalid date.
      */
-    deserialize(value: any): _dayjs.Dayjs | null {
+    override deserialize(value: any): dayjs.Dayjs | null {
         let date;
         if (value instanceof Date) {
             date = this.dayJs(value);
@@ -285,11 +278,11 @@ export class DayjsDateAdapter extends DateAdapter<_dayjs.Dayjs> {
         return dayjs.isDayjs(obj);
     }
 
-    isValid(date: _dayjs.Dayjs): boolean {
+    isValid(date: dayjs.Dayjs): boolean {
         return this.dayJs(date).isValid();
     }
 
-    invalid(): _dayjs.Dayjs {
+    invalid(): dayjs.Dayjs {
         return this.dayJs(null);
     }
 
@@ -298,7 +291,7 @@ export class DayjsDateAdapter extends DateAdapter<_dayjs.Dayjs> {
         format?: string | string[],
         locale?: string,
         keepLocalTime?: boolean
-    ): _dayjs.Dayjs {
+    ): dayjs.Dayjs {
         const { useUtc }: DayJsDateAdapterOptions = this.options || {};
 
         const result =
@@ -311,7 +304,7 @@ export class DayjsDateAdapter extends DateAdapter<_dayjs.Dayjs> {
 
     private initializeParser(dateLocale: string): LocaleData {
         dayjs.extend(utc);
-        dayjs.extend(LocalizedFormat);
+        dayjs.extend(localizedFormat);
         dayjs.extend(customParseFormat);
         dayjs.extend(localeData);
         dayjs.extend(arraySupport);

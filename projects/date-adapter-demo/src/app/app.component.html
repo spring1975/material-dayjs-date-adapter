@@ -1,28 +1,36 @@
 <div fxLayout="row" fxLayoutAlign="space-around center">
-  <div>
-      <h1>Date Picked</h1>
-      <h2>From Observable</h2>
-      <p>{{ datePicked$ | async | date: 'full':'UTC' }}</p>
-  </div>
+    <div>
+        <h1>Date Picked</h1>
+        <h2>From Observable</h2>
+        <p>{{ datePicked$ | async | date: 'full':'UTC' }}</p>
+    </div>
 </div>
 <div fxLayout="row" fxLayoutAlign="space-around center">
-  <mat-form-field>
-    <input matInput [matDatepicker]="dp" placeholder="dayjs.js datepicker" [formControl]="datePicked">
-    <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
-    <mat-datepicker #dp></mat-datepicker>
-  </mat-form-field>
+    <mat-form-field>
+        <input
+            matInput
+            [matDatepicker]="dp"
+            placeholder="dayjs.js datepicker"
+            [formControl]="datePicked"
+        />
+        <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+        <mat-datepicker #dp></mat-datepicker>
+    </mat-form-field>
 </div>
 <dl>
-  <dt>Interpolated <code>.format('MM-dd-yyyy')</code></dt>
-  <dd>{{datePicked.value.format('MM-DD-YYYY') }}<dd>
-  <dt>Interpolated <code>utc().format('MM-dd-yyyy')</code></dt>
-  <dd>{{datePicked.value.utc().format('MM-DD-YYYY') }}<dd>
-  <dt>Interpolated by Angular</dt>
-  <dd>{{datePicked.value}}<dd>
-  <dt>Angular date pipe format 'MM-dd-yyyy'</dt>
-  <dd>{{datePicked.value | date: 'MM-dd-yyyy'}}<dd>
-  <dt>Custom dateOnly pipe</dt>
-  <dd>{{datePicked.value | dateOnly}}<dd>
-  <dt>As will be sent to server (dateObject.toJSON())</dt>
-  <dd>{{datePicked.value | json}}<dd>
+    <dt>Interpolated <code>.format('MM-dd-yyyy')</code></dt>
+    <dd>{{ datePicked.value.format('MM-DD-YYYY') }}</dd>
+    <dd></dd>
+    <dt>Interpolated <code>utc().format('MM-dd-yyyy')</code></dt>
+    <dd>{{ datePicked.value.utc().format('MM-DD-YYYY') }}</dd>
+    <dd></dd>
+    <dt>Interpolated by Angular</dt>
+    <dd>{{ datePicked$ | async }}</dd>
+    <dd></dd>
+    <dt>Angular date pipe format 'MM-dd-yyyy'</dt>
+    <dd>{{ datePicked$ | async | date: 'MM-dd-yyyy' }}</dd>
+    <dd></dd>
+    <dt>As will be sent to server (dateObject.toJSON())</dt>
+    <dd>{{ datePicked$ | async | json }}</dd>
+    <dd></dd>
 </dl>

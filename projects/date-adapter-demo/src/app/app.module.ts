@@ -12,21 +12,18 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import {
     DateAdapter,
-    MatNativeDateModule,
     MAT_DATE_FORMATS,
     MAT_DATE_LOCALE
 } from '@angular/material/core';
-import { DateOnlyPipe } from './shared/pipes/dateonly.pipe';
-import { DayjsPipe } from './shared/pipes/dayjs.pipe';
 import {
-    DayjsDateModule,
+    DayjsDateAdapterModule,
     DayjsDateAdapter,
     MAT_DAYJS_DATE_ADAPTER_OPTIONS,
     MAT_DAYJS_DATE_FORMATS
 } from 'material-dayjs-date-adapter';
 
 @NgModule({
-    declarations: [AppComponent, DateOnlyPipe, DayjsPipe],
+    declarations: [AppComponent],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
@@ -35,8 +32,7 @@ import {
         FormsModule,
         MatButtonModule,
         MatDatepickerModule,
-        DayjsDateModule,
-        MatNativeDateModule,
+        DayjsDateAdapterModule,
         MatFormFieldModule,
         MatIconModule,
         MatInputModule,

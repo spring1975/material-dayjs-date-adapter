@@ -1,16 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
-import { DateOnlyPipe } from './shared/pipes/dateonly.pipe';
-import { DayjsPipe } from './shared/pipes/dayjs.pipe';
+import { DateOnlyPipe } from '../../../date-adapter-demo/src/app/shared/pipes/dateonly.pipe';
+import { DayjsPipe } from '../../../date-adapter-demo/src/app/shared/pipes/dayjs.pipe';
 
 describe('AppComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             declarations: [AppComponent],
-            imports: [
-              DateOnlyPipe,
-              DayjsPipe
-            ]
+            imports: [DateOnlyPipe, DayjsPipe]
         }).compileComponents();
     });
 

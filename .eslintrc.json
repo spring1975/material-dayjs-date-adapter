@@ -70,7 +70,10 @@
                         "allowSingleExtends": true
                     }
                 ],
-                "@typescript-eslint/consistent-type-assertions": ["error", { "assertionStyle": "as" }],
+                "@typescript-eslint/consistent-type-assertions": [
+                    "error",
+                    { "assertionStyle": "as" }
+                ],
                 "arrow-parens": ["off", "always"],
                 "import/order": "off",
                 "no-unused-vars": [
@@ -83,7 +86,10 @@
                     }
                 ],
                 "no-underscore-dangle": "off",
-                "max-len":["error", { "code": 140, "ignorePattern":"^import .*"}]
+                "max-len": [
+                    "error",
+                    { "code": 140, "ignorePattern": "^import .*" }
+                ]
             }
         },
         {

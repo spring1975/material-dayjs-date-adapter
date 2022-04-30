@@ -1,6 +1,7 @@
-import * as dayjs from 'dayjs';
 import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import * as dayjs from 'dayjs';
+import { startWith } from 'rxjs/operators';
 
 @Component({
     selector: 'app-root',
@@ -8,9 +9,10 @@ import { FormControl } from '@angular/forms';
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-    readonly datePicked = new FormControl(dayjs());
+    readonly today = dayjs();
+    readonly datePicked = new FormControl(this.today);
 
-    get datePicked$() {
-        return this.datePicked.valueChanges;
-    }
+    readonly datePicked$ = this.datePicked.valueChanges.pipe(
+        startWith(this.today)
+    );
 }

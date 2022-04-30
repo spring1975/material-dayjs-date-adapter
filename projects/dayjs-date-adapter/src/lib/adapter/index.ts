@@ -1,3 +1,4 @@
+import { NgModule } from '@angular/core';
 import {
     DateAdapter,
     MAT_DATE_FORMATS,
@@ -9,25 +10,23 @@ import {
 } from './dayjs-date-adapter';
 
 import { MAT_DAYJS_DATE_FORMATS } from './dayjs-date-formats';
-import { NgModule } from '@angular/core';
 
 export * from './dayjs-date-adapter';
 export * from './dayjs-date-formats';
 
 @NgModule({
-  providers: [
-    {
-      provide: DateAdapter,
-      useClass: DayjsDateAdapter,
-      deps: [MAT_DATE_LOCALE, MAT_DAYJS_DATE_ADAPTER_OPTIONS]
-    },
-  ],
+    providers: [
+        {
+            provide: DateAdapter,
+            useClass: DayjsDateAdapter,
+            deps: [MAT_DATE_LOCALE, MAT_DAYJS_DATE_ADAPTER_OPTIONS]
+        }
+    ]
 })
-export class DayjsDateModule {}
+export class DayjsDateAdapterModule {}
 
 @NgModule({
-  imports: [DayjsDateModule],
-  providers: [{provide: MAT_DATE_FORMATS, useValue: MAT_DAYJS_DATE_FORMATS}],
+    imports: [DayjsDateAdapterModule],
+    providers: [{ provide: MAT_DATE_FORMATS, useValue: MAT_DAYJS_DATE_FORMATS }]
 })
-
-export class MatDateFnsModule {}
+export class MatDayjsDateAdapterModule {}

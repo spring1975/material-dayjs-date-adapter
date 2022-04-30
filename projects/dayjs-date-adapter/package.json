@@ -1,22 +1,25 @@
 {
-  "name": "material-dayjs-date-adapter",
-  "version": "0.3.0",
-  "description": "Angular Material day.js Adapter",
-  "author": "Roger Spring",
-  "license": "MIT",
-  "repository": {
-    "type":"git",
-    "url":"https://github.com/spring1975/material-dayjs-date-adapter"
-  },
-  "bugs": {
-    "url": "https://github.com/spring1975/material-dayjs-date-adapter/issues"
-  },
-  "homepage": "https://github.com/spring1975/material-dayjs-date-adapter#readme",
-  "peerDependencies": {
-    "@angular/common": "^11.0.9",
-    "@angular/core": "^11.0.9"
-  },
-  "dependencies": {
-    "tslib": "^2.0.0"
-  }
+    "name": "material-dayjs-date-adapter",
+    "version": "0.9.0",
+    "description": "Angular Material day.js Adapter",
+    "author": "Roger Spring",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/spring1975/material-dayjs-date-adapter"
+    },
+    "bugs": {
+        "url": "https://github.com/spring1975/material-dayjs-date-adapter/issues"
+    },
+    "homepage": "https://github.com/spring1975/material-dayjs-date-adapter#readme",
+    "peerDependencies": {
+        "@angular/common": "^13.3.0",
+        "@angular/core": "^13.3.0",
+        "@angular/cdk": "^13.3.0",
+        "@angular/material": "^13.3.0",
+        "dayjs": ">=1.10.5"
+    },
+    "dependencies": {
+        "tslib": "^2.3.0"
+    }
 }
