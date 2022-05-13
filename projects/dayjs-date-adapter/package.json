@@ -1,6 +1,6 @@
 {
     "name": "material-dayjs-date-adapter",
-    "version": "0.9.0",
+    "version": "0.9.1",
     "description": "Angular Material day.js Adapter",
     "author": "Roger Spring",
     "license": "MIT",
