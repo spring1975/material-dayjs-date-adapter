@@ -20,17 +20,14 @@
 <dl>
     <dt>Interpolated <code>.format('MM-dd-yyyy')</code></dt>
     <dd>{{ datePicked.value.format('MM-DD-YYYY') }}</dd>
-    <dd></dd>
     <dt>Interpolated <code>utc().format('MM-dd-yyyy')</code></dt>
     <dd>{{ datePicked.value.utc().format('MM-DD-YYYY') }}</dd>
-    <dd></dd>
     <dt>Interpolated by Angular</dt>
     <dd>{{ datePicked$ | async }}</dd>
-    <dd></dd>
-    <dt>Angular date pipe format 'MM-dd-yyyy'</dt>
-    <dd>{{ datePicked$ | async | date: 'MM-dd-yyyy' }}</dd>
-    <dd></dd>
+    <dt>Angular date pipe format 'medium' (displays as local time)</dt>
+    <dd>{{ datePicked$ | async | date: 'medium' }}</dd>
+    <dt>Angular date pipe format 'medium':'UTC' (displays as UTC)</dt>
+    <dd>{{ datePicked$ | async | date: 'medium':'UTC'  }}</dd>
     <dt>As will be sent to server (dateObject.toJSON())</dt>
     <dd>{{ datePicked$ | async | json }}</dd>
-    <dd></dd>
 </dl>
