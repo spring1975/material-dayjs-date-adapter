@@ -209,9 +209,9 @@ export class DayjsDateAdapter extends DateAdapter<dayjs.Dayjs> {
 
     parse(value: any, parseFormat?: string | string[]): dayjs.Dayjs | null {
         if (value && typeof value === 'string') {
-            return this.dayJs(value, parseFormat, this.locale);
+            return this.dayJs(value, parseFormat, this.locale, true);
         } else if (value) {
-            return this.dayJs(value, this.locale);
+            return this.dayJs(value, undefined, this.locale, true);
         }
         return null;
     }
@@ -296,7 +296,7 @@ export class DayjsDateAdapter extends DateAdapter<dayjs.Dayjs> {
 
         const result =
             input instanceof Date || typeof input === 'number' || !format
-                ? dayjs(input, locale)
+                ? dayjs(input, undefined, locale)
                 : dayjs(input, format, locale);
 
         return useUtc ? result.utc(keepLocalTime) : result;

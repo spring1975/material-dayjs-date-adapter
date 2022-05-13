@@ -29,19 +29,17 @@ describe('DayjsDateAdapter', () => {
         let adapter: DayjsDateAdapter;
         let assertValidDate: (d: dayjs.Dayjs | null, valid: boolean) => void;
 
-        beforeEach(
-            waitForAsync(() => {
-                TestBed.configureTestingModule({
-                    imports: [DayjsDateAdapterModule],
-                    providers: [
-                        {
-                            provide: MAT_DAYJS_DATE_ADAPTER_OPTIONS,
-                            useValue: { useUtc: false }
-                        }
-                    ]
-                }).compileComponents();
-            })
-        );
+        beforeEach(waitForAsync(() => {
+            TestBed.configureTestingModule({
+                imports: [DayjsDateAdapterModule],
+                providers: [
+                    {
+                        provide: MAT_DAYJS_DATE_ADAPTER_OPTIONS,
+                        useValue: { useUtc: false }
+                    }
+                ]
+            }).compileComponents();
+        }));
 
         beforeEach(inject([DateAdapter], (dateAdapter: DayjsDateAdapter) => {
             dayjs.locale('en');
@@ -366,22 +364,39 @@ describe('DayjsDateAdapter', () => {
             );
         });
 
-        it('should parse string according to given format', () => {
-            expect(adapter.parse('1/2/2017', 'M/D/YYYY')!.format()).toEqual(
-                dayjs([2017, JAN, 2]).format()
-            );
-            expect(adapter.parse('01/02/2017', 'MM/DD/YYYY')!.format()).toEqual(
-                dayjs([2017, JAN, 2]).format()
-            );
-            expect(adapter.parse('1/2/2017', 'D/M/YYYY')!.format()).toEqual(
-                dayjs([2017, FEB, 1]).format()
-            );
-            expect(
-                adapter
-                    .parse('1/2/17', ['D/M/YYYY', 'MM/DD/YYYY', 'D/M/YY'])!
-                    .format()
-            ).toEqual(dayjs([2017, FEB, 1]).format());
-        });
+        [
+            {
+                dtString: '1/2/2017',
+                format: 'M/D/YYYY',
+                expected: '2017-01-02T00:00:00-08:00'
+            },
+            {
+                dtString: '01/02/2017',
+                format: 'MM/DD/YYYY',
+                expected: '2017-01-02T00:00:00-08:00'
+            },
+            {
+                dtString: '1/2/2017',
+                format: 'D/M/YYYY',
+                expected: '2017-02-01T00:00:00-08:00'
+            },
+            {
+                dtString: '1/2/17',
+                format: ['D/M/YYYY', 'DD/MM/YYYY', 'D/M/YY'],
+                expected: '2017-02-01T00:00:00-08:00'
+            },
+            {
+                dtString: '01/02/2017',
+                format: ['M/D/YYYY', 'MM/DD/YYYY', 'M/D/YY'],
+                expected: '2017-01-02T00:00:00-08:00'
+            }
+        ].forEach(({ dtString, format, expected }) =>
+            it(`should parse string ${dtString} according to given format`, () => {
+                expect(adapter.parse(dtString, format)!.format()).toEqual(
+                    expected
+                );
+            })
+        );
 
         it('should parse number', () => {
             const timestamp = new Date().getTime();
@@ -685,14 +700,12 @@ describe('DayjsDateAdapter', () => {
     describe('with MAT_DATE_LOCALE override', () => {
         let adapter: DayjsDateAdapter;
 
-        beforeEach(
-            waitForAsync(() => {
-                TestBed.configureTestingModule({
-                    imports: [DayjsDateAdapterModule],
-                    providers: [{ provide: MAT_DATE_LOCALE, useValue: 'ja' }]
-                }).compileComponents();
-            })
-        );
+        beforeEach(waitForAsync(() => {
+            TestBed.configureTestingModule({
+                imports: [DayjsDateAdapterModule],
+                providers: [{ provide: MAT_DATE_LOCALE, useValue: 'ja' }]
+            }).compileComponents();
+        }));
 
         beforeEach(inject([DateAdapter], (d: DayjsDateAdapter) => {
             adapter = d;
@@ -707,14 +720,12 @@ describe('DayjsDateAdapter', () => {
     describe('with LOCALE_ID override', () => {
         let adapter: DayjsDateAdapter;
 
-        beforeEach(
-            waitForAsync(() => {
-                TestBed.configureTestingModule({
-                    imports: [DayjsDateAdapterModule],
-                    providers: [{ provide: MAT_DATE_LOCALE, useValue: 'fr' }]
-                }).compileComponents();
-            })
-        );
+        beforeEach(waitForAsync(() => {
+            TestBed.configureTestingModule({
+                imports: [DayjsDateAdapterModule],
+                providers: [{ provide: MAT_DATE_LOCALE, useValue: 'fr' }]
+            }).compileComponents();
+        }));
 
         beforeEach(inject([DateAdapter], (d: DayjsDateAdapter) => {
             adapter = d;
@@ -730,19 +741,17 @@ describe('DayjsDateAdapter', () => {
     describe('with MAT_DAYJS_DATE_ADAPTER_OPTIONS override', () => {
         let adapter: DayjsDateAdapter;
 
-        beforeEach(
-            waitForAsync(() => {
-                TestBed.configureTestingModule({
-                    imports: [DayjsDateAdapterModule],
-                    providers: [
-                        {
-                            provide: MAT_DAYJS_DATE_ADAPTER_OPTIONS,
-                            useValue: { useUtc: true }
-                        }
-                    ]
-                }).compileComponents();
-            })
-        );
+        beforeEach(waitForAsync(() => {
+            TestBed.configureTestingModule({
+                imports: [DayjsDateAdapterModule],
+                providers: [
+                    {
+                        provide: MAT_DAYJS_DATE_ADAPTER_OPTIONS,
+                        useValue: { useUtc: true }
+                    }
+                ]
+            }).compileComponents();
+        }));
 
         beforeEach(inject([DateAdapter], (d: DayjsDateAdapter) => {
             adapter = d;
@@ -772,25 +781,70 @@ describe('DayjsDateAdapter', () => {
             it('should return UTC date when deserializing date only', () => {
                 expect(adapter.deserialize('1985-04-12')!.isUTC()).toBe(true);
             });
+
+            [
+                {
+                    dtString: '1/2/2017',
+                    format: 'M/D/YYYY',
+                    expected: '2017-01-02T00:00:00+00:00'
+                },
+                {
+                    dtString: '01/02/2017',
+                    format: 'MM/DD/YYYY',
+                    expected: '2017-01-02T00:00:00+00:00'
+                },
+                {
+                    dtString: '1/2/2017',
+                    format: 'D/M/YYYY',
+                    expected: '2017-02-01T00:00:00+00:00'
+                },
+                {
+                    dtString: '1/2/17',
+                    format: ['D/M/YYYY', 'DD/MM/YYYY', 'D/M/YY'],
+                    expected: '2017-02-01T00:00:00+00:00'
+                },
+                {
+                    dtString: '01/02/2017',
+                    format: ['M/D/YYYY', 'MM/DD/YYYY', 'M/D/YY'],
+                    expected: '2017-01-02T00:00:00+00:00'
+                }
+            ].forEach(({ dtString, format, expected }) =>
+                it(`should parse string ${dtString} according to given format`, () => {
+                    expect(adapter.parse(dtString, format)!.format()).toEqual(
+                        expected
+                    );
+                })
+            );
+            [
+                {
+                    dtString: dayjs([2017, 1, 2]),
+                    format: ['M/D/YYYY', 'MM/DD/YYYY', 'M/D/YY'],
+                    expected: '2017-01-02T00:00:00+00:00'
+                }
+            ].forEach(({ dtString, format, expected }) =>
+                it(`should parse string ${dtString.format()} according to given format`, () => {
+                    expect(adapter.parse(dtString, format)!.format()).toEqual(
+                        expected
+                    );
+                })
+            );
         });
 
         describe('strict mode', () => {
-            beforeEach(
-                waitForAsync(() => {
-                    TestBed.resetTestingModule();
-                    TestBed.configureTestingModule({
-                        imports: [DayjsDateAdapterModule],
-                        providers: [
-                            {
-                                provide: MAT_DAYJS_DATE_ADAPTER_OPTIONS,
-                                useValue: {
-                                    strict: true
-                                }
+            beforeEach(waitForAsync(() => {
+                TestBed.resetTestingModule();
+                TestBed.configureTestingModule({
+                    imports: [DayjsDateAdapterModule],
+                    providers: [
+                        {
+                            provide: MAT_DAYJS_DATE_ADAPTER_OPTIONS,
+                            useValue: {
+                                strict: true
                             }
-                        ]
-                    }).compileComponents();
-                })
-            );
+                        }
+                    ]
+                }).compileComponents();
+            }));
 
             beforeEach(inject([DateAdapter], (d: DayjsDateAdapter) => {
                 adapter = d;
