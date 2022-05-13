@@ -47,14 +47,15 @@ describe('DayjsDateAdapter', () => {
             adapter.setLocale('en');
 
             assertValidDate = (d: dayjs.Dayjs | null, valid: boolean) => {
-                expect(adapter.isDateInstance(d)).not.toBeNull(
-                    `Expected ${d} to be a date instance`
-                );
-                expect(adapter.isValid(d!)).toBe(
-                    valid,
-                    `Expected ${d} to be ${valid ? 'valid' : 'invalid'},` +
-                        ` but was ${valid ? 'invalid' : 'valid'}`
-                );
+                expect(adapter.isDateInstance(d))
+                    .withContext(`Expected ${d} to be a date instance`)
+                    .toBeTruthy();
+                expect(adapter.isValid(d!))
+                    .withContext(
+                        `Expected ${d} to be ${valid ? 'valid' : 'invalid'},` +
+                            ` but was ${valid ? 'invalid' : 'valid'}`
+                    )
+                    .toBe(valid);
             };
         }));
 
@@ -358,10 +359,9 @@ describe('DayjsDateAdapter', () => {
         it("should get today's date", () => {
             const today = dayjs();
             const adapterToday = adapter.today();
-            expect(adapter.sameDate(adapterToday, today)).toBe(
-                true,
-                "should be equal to today's date"
-            );
+            expect(adapter.sameDate(adapterToday, today))
+                .withContext("should be equal to today's date")
+                .toBe(true);
         });
 
         [
@@ -398,6 +398,30 @@ describe('DayjsDateAdapter', () => {
             })
         );
 
+        it(`should parse dayjs object according to given format`, () => {
+            expect(
+                adapter
+                    .parse(dayjs([2017, JAN, 2]), [
+                        'M/D/YYYY',
+                        'MM/DD/YYYY',
+                        'M/D/YY'
+                    ])!
+                    .format()
+            ).toEqual('2017-01-02T00:00:00-08:00');
+        });
+
+        it(`should parse JS Date object according to given format`, () => {
+            expect(
+                adapter
+                    .parse(new Date(2017, JAN, 2), [
+                        'M/D/YYYY',
+                        'MM/DD/YYYY',
+                        'M/D/YY'
+                    ])!
+                    .format()
+            ).toEqual('2017-01-02T00:00:00-08:00');
+        });
+
         it('should parse number', () => {
             const timestamp = new Date().getTime();
             expect(adapter.parse(timestamp)!.format()).toEqual(
@@ -424,14 +448,14 @@ describe('DayjsDateAdapter', () => {
         it('should parse invalid value as invalid', () => {
             const d = adapter.parse('hello', 'MM/DD/YYYY');
             expect(d).not.toBeNull();
-            expect(adapter.isDateInstance(d)).toBe(
-                true,
-                'Expected string to have been fed through Date.parse'
-            );
-            expect(adapter.isValid(d as dayjs.Dayjs)).toBe(
-                false,
-                'Expected to parse as "invalid date" object'
-            );
+            expect(adapter.isDateInstance(d))
+                .withContext(
+                    'Expected string to have been fed through Date.parse'
+                )
+                .toBe(true);
+            expect(adapter.isValid(d as dayjs.Dayjs))
+                .withContext('Expected to parse as "invalid date" object')
+                .toBe(false);
         });
 
         it('should format date according to given format', () => {
@@ -815,19 +839,30 @@ describe('DayjsDateAdapter', () => {
                     );
                 })
             );
-            [
-                {
-                    dtString: dayjs([2017, 1, 2]),
-                    format: ['M/D/YYYY', 'MM/DD/YYYY', 'M/D/YY'],
-                    expected: '2017-01-02T00:00:00+00:00'
-                }
-            ].forEach(({ dtString, format, expected }) =>
-                it(`should parse string ${dtString.format()} according to given format`, () => {
-                    expect(adapter.parse(dtString, format)!.format()).toEqual(
-                        expected
-                    );
-                })
-            );
+
+            it(`should parse dayjs object according to given format`, () => {
+                expect(
+                    adapter
+                        .parse(dayjs([2017, JAN, 2]), [
+                            'M/D/YYYY',
+                            'MM/DD/YYYY',
+                            'M/D/YY'
+                        ])!
+                        .format()
+                ).toEqual('2017-01-02T00:00:00+00:00');
+            });
+
+            it(`should parse JS Date object according to given format`, () => {
+                expect(
+                    adapter
+                        .parse(new Date(2017, JAN, 2), [
+                            'M/D/YYYY',
+                            'MM/DD/YYYY',
+                            'M/D/YY'
+                        ])!
+                        .format()
+                ).toEqual('2017-01-02T00:00:00+00:00');
+            });
         });
 
         describe('strict mode', () => {
