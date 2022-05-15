@@ -1,6 +1,6 @@
 # DayjsDateAdapter for Angular Material Components Datepicker
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.5.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.0.
 
 <div id="top"></div>
 
@@ -14,7 +14,7 @@ If you are not familiar with date adapters for Angular material component Datepi
 
 ## Usage
 
-If you want to see the adapter in action - [www.stackblitz.com/](https://stackblitz.com/edit/material-dayjs-date-adapter-demo?file=src/app/app.component.html)
+If you want to see the adapter in action - [www.stackblitz.com/edit/material-dayjs-date-adapter-demo](https://stackblitz.com/edit/material-dayjs-date-adapter-demo?file=src/app/app.component.html)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 

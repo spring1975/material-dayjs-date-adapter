@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import * as dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
+import * as utc from 'dayjs/plugin/utc';
 import { Observable } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 
@@ -16,12 +16,11 @@ export class AppComponent {
 
     readonly datePicked$: Observable<any>;
     constructor() {
-        dayjs.extend(utc);
-        this.today = dayjs.utc().startOf('day');
-        console.log('date as initialized in constructor', this.today.format());
-        this.datePicked = new FormControl(this.today);
-        this.datePicked$ = this.datePicked.valueChanges.pipe(
-            startWith(this.today)
-        );
-    }
+      const t = new Date();
+      this.today = dayjs(new Date(
+        Date.UTC(t.getFullYear(), t.getMonth(), t.getUTCDay(), 0, 0, 0)
+      ));
+      this.datePicked = new FormControl(this.today);
+      this.datePicked$ = this.datePicked.valueChanges.pipe(startWith(this.today));
+      }
 }

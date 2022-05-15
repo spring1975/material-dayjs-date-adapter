@@ -12,8 +12,10 @@
     "noImplicitReturns": true,
     "paths": {
       "material-dayjs-date-adapter": [
-        "dist/material-dayjs-date-adapter/lib/adapter",
-        "dist/material-dayjs-date-adapter"
+        // "dist/material-dayjs-date-adapter/lib/adapter",
+        // "dist/material-dayjs-date-adapter",
+        "projects/dayjs-date-adapter/src/lib/adapter",
+        "projects/dayjs-date-adapter"
       ]
     },
     "noFallthroughCasesInSwitch": true,
